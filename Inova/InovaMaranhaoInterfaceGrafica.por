@@ -2,14 +2,39 @@ programa
 {
 	inclua biblioteca Mouse --> m 
 	inclua biblioteca Tipos --> t
+	inclua biblioteca Texto -->tx
 	inclua biblioteca Teclado --> tcl
 	inclua biblioteca Util-->u
 	inclua biblioteca Graficos --> g
+	inclua biblioteca Matematica --> mat
 
 	real valores[] ={21.50,120.00,9.90,14.90,29.90,14.00,4.90,55.90,16.10,21.90,34.80,99.00,14.90,54.90,29.90,19.90,26.90,34.90,69.90,49.90}
 	real comissoes[] = {15.0,15.0,10.0,10.0,15.0,10.0,10.0,15.0,10.0,15.0,15.0,15.0,10.0,15.0,15.0,15.0,15.0,15.0,15.0,15.0}
-	
-	inteiro cor_botao1 = g.criar_cor(125, 125, 125)
+	real comisaoAten[] = {0.000,0.000,0.000}
+	inteiro produtosVendidos[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+	cadeia nomeAtendente[] = {"Atendente1 ", "Atendente2", "Atendente3"}
+	cadeia produtos[] = {"Bandeja Higiênica para Gato G",
+						"CLEAN PERFUME - BLUE PUPPY 500ML",
+						"Pente Duplo Antipulga para Cães e Gatos",
+						"Condicionador Famous Pet Argan Dr. Rey 500ml",
+						"Hidrante Educador de cães para xixi Sanitário",
+						"Creme Dental Pet Clean para Cães e Gatos 60gr",
+						"Escova Dental Care Dupla para Cães",
+						"Ração Golden Gatos Filhotes Sabor Frango 3kg",
+						"Biscoito Golden Cookie para Cães Filhores 400g",
+						"Ração Golden Fórmula Mini Bits para Cães Adultos de Pequeno Porte Sabor Salmão e Arroz 1Kg",
+						"DOG PELUCIA FOFINHOS ANIMAIS",
+						"Caminha Iglu Cubo para Cães",
+						"Brinquedo Mordedor para Cães - Bolinho Patinha 12cm",
+						"Bolsa de transporte para Pet Cães e Gatos - Fêmea",
+						"Roupinhas para Cães - Vestidos em Soft",
+						"Manta SOFT para Cães e Gatos",
+						"Fantasia Chapolin Colorado - Tam G",
+						"Peitoral Confort para Cães M - The Pets Brasil",
+						"Guia Coleira Refletível Ajustável para Cães",
+						"Guia e Peitoral para Gatos Moderna Ajustável"}
+		
+
 	real tamanho_fonte = 25.0
 	logico v = verdadeiro, f = falso
 	inteiro esq = m.BOTAO_ESQUERDO
@@ -50,13 +75,16 @@ programa
 
 	logico rodando = verdadeiro
 	logico passa = falso
-	//cor fundo
-	inteiro cor_fundo = g.criar_cor(50,100,100)
+	//cor
+	inteiro cor_botao1 = g.criar_cor(100, 100, 100)
+	inteiro cor_fundo = g.criar_cor(255,255,255)
 
-	//cor botao
+	//cor
 
-	inteiro produto = 0
-	inteiro unidades = 0
+	inteiro produto = 1
+	inteiro unidades = 1
+
+	real lucro_total = 0.0
 
 	
 	funcao inicio()
@@ -78,22 +106,75 @@ programa
 			//menu
 			criar_botao(posicao_botao_x,posicao_botao_y,botao_largura,botao_altura,botao_vender,"Vender")
 			criar_botao(posicao_botao_x,posicao_botao_y,botao_largura,botao_altura,botao_info,"Informações")
-			criar_botao(posicao_botao_x,posicao_botao_y,botao_largura,botao_altura,botao_nome,"Mudar nome")						
+			criar_botao(posicao_botao_x,posicao_botao_y,botao_largura,botao_altura,botao_nome,"Sair")						
 			//menu
 
 			//venda
 			venda(click_vender)
 			//venda
+
+			//info
+			info(click_info)
+			//info
+
+			//sair
+			se(click_nome e m.botao_pressionado(esq))
+			{
+				pare
+			}
 			
 			g.renderizar()
 		}	
 			
 	}
 
+	funcao info(logico click_info)
+	{
+		se(click_info e m.botao_pressionado(esq))
+			{
+				u.aguarde(250)
+				enquanto(verdadeiro)
+				{	
+					logico click_sair = mouse_interacao(posicao_botao_x/4 , posicao_botao_y - botao_sair,botao_largura,botao_altura)
+					cor_fundo_padrao(cor_fundo)
+
+
+					criar_text(largura/4, altura/100 + 10, "Informações Gerais")
+					g.definir_tamanho_texto(20.0)
+					criar_text(largura/4,altura/10 ,"Lucro Total: " +mat.arredondar(lucro_total,2))
+					g.definir_tamanho_texto(20.0)
+					criar_text(largura/4,altura/10 + 25 ,""+nomeAtendente[0]+"; Comissão: " +mat.arredondar(comisaoAten[0],2 ))
+					g.definir_tamanho_texto(20.0)
+					criar_text(largura/4,altura/10 + 25 * 2 ,""+nomeAtendente[1]+"; Comissão: " +mat.arredondar(comisaoAten[1],2))
+					g.definir_tamanho_texto(20.0)
+					criar_text(largura/4,altura/10 + 25 * 3,""+nomeAtendente[2]+"; Comissão: " +mat.arredondar(comisaoAten[2],2 ) )
+					
+					g.desenhar_imagem((largura/2), altura/10, tabela)
+					g.definir_tamanho_texto(30.0)
+					criar_text(largura/2 + 150 , altura/100 + 10, "Tabela de Preços")
+					para(inteiro i=1 ; i<=20 ; i++)
+					{
+						g.definir_tamanho_texto(15.0)
+						criar_text((largura/2 -10), altura/10 + (27*i) - 27, "" +produtosVendidos[i - 1] +"")
+					}
+						
+					criar_botao(posicao_botao_x/4, posicao_botao_y,botao_largura,botao_altura,botao_sair, "Volta")
+					se(click_sair e m.botao_pressionado(esq))
+					{
+						pare
+					}
+					
+					g.renderizar()
+				}
+				
+			}
+	}
+
 	funcao venda(logico click_vender)
 	{
 		se(click_vender e m.botao_pressionado(esq))
 		{	//escolher atendente
+			u.aguarde(500)
 			enquanto(verdadeiro)
 			{
 				cor_fundo_padrao(cor_fundo)
@@ -105,7 +186,7 @@ programa
 				logico click_a3 = mouse_interacao(posicao_botao_x, posicao_botao_y - botao_a3 ,botao_largura,botao_altura)
 				//venda
 				passa = falso
-				cadeia nome
+				inteiro idAtendente = 0
 				
 
 				
@@ -123,22 +204,22 @@ programa
 				se(click_a1 e m.botao_pressionado(esq))
 				{
 					passa = verdadeiro
-					nome = atendente1
+					idAtendente = 0
 				}
 				se(click_a2 e m.botao_pressionado(esq))
 				{
 					passa = verdadeiro
-					nome = atendente2
+					idAtendente = 1
 				}
 				se(click_a3 e m.botao_pressionado(esq))
 				{
 					passa = verdadeiro
-					nome = atendente3 
+					idAtendente = 2 
 				}					
 				//escolher produto
 				se(passa == verdadeiro)
 				{
-
+					u.aguarde(250)
 					enquanto(verdadeiro)
 					{
 
@@ -153,6 +234,8 @@ programa
 						criar_text(largura/4, altura/100 + 30, "seta para cima e para baixo")
 						g.definir_tamanho_texto(25.0)
 						criar_text(largura/4, altura/100 + 60, "aperte ENTER para confirmar")
+
+						criar_text(largura/4, altura/4, t.inteiro_para_cadeia(produto,10))
 						//texto
 						
 						g.desenhar_imagem(  largura/2 , 25, tabela)
@@ -161,9 +244,9 @@ programa
 						{
 							produto = 20
 						}
-						se(produto <= 0)
+						se(produto <= 1)
 						{
-							produto = 0
+							produto = 1
 						}
 						se(tcl.tecla_pressionada(tcl.TECLA_SETA_ACIMA))
 						{
@@ -175,11 +258,14 @@ programa
 							produto--
 							u.aguarde(150)
 						}
+						
 
 						se(tcl.tecla_pressionada(tcl.TECLA_ENTER))
 						{	//escolher unidade
+							u.aguarde(250)
 							enquanto(verdadeiro)
 							{
+								
 								logico click_sair_v1 = mouse_interacao(posicao_botao_x/3, posicao_botao_y - botao_sair ,botao_largura,botao_altura)
 
 								cor_fundo_padrao(cor_fundo)
@@ -195,10 +281,11 @@ programa
 								
 								criar_text(largura/4, altura/2 - 40, "Unidades")
 								criar_text(largura/4, altura/2, t.inteiro_para_cadeia(unidades,10))
+
 								
-								se(produto <= 0)
+								se(unidades <= 1)
 								{
-									produto = 0
+									unidades = 1
 								}
 								se(tcl.tecla_pressionada(tcl.TECLA_SETA_ACIMA))
 								{
@@ -211,12 +298,14 @@ programa
 									u.aguarde(150)
 								}
 
-								se(tcl.tecla_pressionada(tcl.TECLA_ENTER) e unidades > 0)
+								se(tcl.tecla_pressionada(tcl.TECLA_ENTER) )
 								{	//confirma compra
+									u.aguarde(250)
 									enquanto(verdadeiro)
 									{
+										
 										logico click_sair_v2 = mouse_interacao(posicao_botao_x/3, posicao_botao_y - botao_sair ,botao_largura,botao_altura)
-										logico click_confirma = mouse_interacao(posicao_botao_x/3, posicao_botao_y - botao_altura - 10 ,botao_largura,botao_altura)
+										logico click_confirma = mouse_interacao(posicao_botao_x/3, posicao_botao_y - botao_altura - 10 - botao_sair,botao_largura,botao_altura)
 										
 										
 										cor_fundo_padrao(cor_fundo)
@@ -243,6 +332,47 @@ programa
 										se(click_confirma e m.botao_pressionado(esq) ou tcl.tecla_pressionada(tcl.TECLA_ENTER))
 										{
 											
+											//calculo da compra
+											produto--
+											real com = comissoes[produto]
+											real val = valores[produto ]
+											real total_recebido = (val * (com/100)) * unidades
+											comisaoAten[idAtendente] += total_recebido
+											produtosVendidos[produto] += unidades
+											lucro_total += val * unidades
+											//calculo da compra
+											enquanto(verdadeiro)
+											{	
+												logico click_sair_v3 = mouse_interacao(posicao_botao_x, posicao_botao_y - botao_sair ,botao_largura,botao_altura)
+										
+											
+												cor_fundo_padrao(cor_fundo)
+												criar_text(largura/2,altura/100 + 20,"COMPRA EFETUADA")
+
+												g.definir_tamanho_texto(20.0)
+												criar_text(largura/2, altura/10, "NOME DO PRODUTO: "+produtos[produto])
+												g.definir_tamanho_texto(20.0)
+												criar_text(largura/2, altura/10 + 24, "VALOR POR UNIDADE("+ unidades +"): R$ "+val)
+												g.definir_tamanho_texto(20.0)
+												criar_text(largura/2, altura/10 + 24*2, "VALOR TOTAL: R$ "+mat.arredondar( val*unidades,2))
+												g.definir_tamanho_texto(20.0)
+												criar_text(largura/2, altura/10 + 24*3, "NOME DO ATENDENTE: "+ nomeAtendente[idAtendente] )
+												g.definir_tamanho_texto(20.0)
+												criar_text(largura/2, altura/10 + 24*4, "COMISSÃO DO ATENDENTE: R$ "+ mat.arredondar(comisaoAten[idAtendente],2) )
+										
+												criar_botao(posicao_botao_x, posicao_botao_y,botao_largura,botao_altura,botao_sair, "Volta")
+												se(click_sair_v3 e m.botao_pressionado(esq))
+												{
+													produto = 0
+													unidades = 0
+													pare
+												}
+												
+												g.renderizar()
+											}
+											
+											
+											
 										}
 										//processa pagamento
 										se(click_sair_v2 e m.botao_pressionado(esq))
@@ -268,7 +398,6 @@ programa
 							}
 						}	//escolher unidades
 							
-						criar_text(largura/4, altura/4, t.inteiro_para_cadeia(produto,10))
 						
 						criar_botao(posicao_botao_x/3, posicao_botao_y,botao_largura,botao_altura,botao_sair, "Sair")
 						se(click_sair_v e m.botao_pressionado(esq))
@@ -312,7 +441,7 @@ programa
 			g.desenhar_retangulo(posicao_botao_xf, posicao_botao_yf - alturaf, botao_larguraf, botao_alturaf, v, v)
 
 			//texto
-			g.definir_cor(g.COR_PRETO)
+			g.definir_cor(g.COR_BRANCO)
 			inteiro text_x =(posicao_botao_xf + (botao_larguraf/2) ) - (g.largura_texto(frase)/2)
 			inteiro text_y = (posicao_botao_yf + (botao_alturaf/2)) - (g.altura_texto(frase)/2)
 			g.desenhar_texto(text_x  ,text_y - alturaf , frase)
@@ -320,7 +449,7 @@ programa
 
 			se(mouse_interacao(posicao_botao_xf, posicao_botao_yf - alturaf ,botao_larguraf ,botao_alturaf)  )
 			{
-				g.desenhar_retangulo(posicao_botao_xf, posicao_botao_yf - alturaf, botao_larguraf, botao_alturaf, v, f)
+				g.desenhar_retangulo(posicao_botao_xf, posicao_botao_yf - alturaf, botao_larguraf+2, botao_alturaf+2, v, f)
 				g.definir_cor(g.COR_PRETO)
 			}
 			
@@ -360,8 +489,8 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 7739; 
- * @DOBRAMENTO-CODIGO = [328, 342];
+ * @POSICAO-CURSOR = 5559; 
+ * @DOBRAMENTO-CODIGO = [15, 130, 427, 435, 457, 471, 480];
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
