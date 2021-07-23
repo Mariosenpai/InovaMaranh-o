@@ -48,7 +48,7 @@ programa
 		enquanto(verdadeiro)
 		{
 			escreva("Ola bem vindo!\nDigite o numero corespondente\n")
-			escreva("1 - Vender Produto\n2 - Informações\n3 - Mudar Nomes\n0 - Sair\n")
+			escreva("1 - Vender Produto\n2 - Informações\n0 - Sair\n")
 			leia(opcao)
 			limpa()
 
@@ -238,7 +238,7 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 4602; 
+ * @POSICAO-CURSOR = 1801; 
  * @DOBRAMENTO-CODIGO = [14, 55, 126, 184];
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;

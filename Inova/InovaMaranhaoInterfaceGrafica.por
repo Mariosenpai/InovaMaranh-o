@@ -197,7 +197,7 @@ programa
 				criar_text(largura/2, altura/14, "Selecione o atendente que efetuou a venda")
 
 				
-				criar_botao(posicao_botao_x, posicao_botao_y,botao_largura,botao_altura,botao_sair, "Sair")
+				criar_botao(posicao_botao_x, posicao_botao_y,botao_largura,botao_altura,botao_sair, "Voltar")
 				
 				//botoes atendentes
 				criar_botao(posicao_botao_x , posicao_botao_y,botao_largura,botao_altura,botao_a1, atendente1)
@@ -497,8 +497,8 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 8154; 
- * @DOBRAMENTO-CODIGO = [15, 130, 435, 443, 465, 479, 488];
+ * @POSICAO-CURSOR = 14194; 
+ * @DOBRAMENTO-CODIGO = [15, 130, 176, 435, 443, 465, 479, 488];
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
