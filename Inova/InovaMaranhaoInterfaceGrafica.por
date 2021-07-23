@@ -152,6 +152,10 @@ programa
 					g.desenhar_imagem((largura/2), altura/10, tabela)
 					g.definir_tamanho_texto(30.0)
 					criar_text(largura/2 + 150 , altura/100 + 10, "Tabela de Preços")
+					g.definir_tamanho_texto(15.0)
+					criar_text(largura/2 - 10, altura/20 - 10 , "Unidades")
+					g.definir_tamanho_texto(15.0)
+					criar_text(largura/2 - 10, altura/20 + 10 , "Vendidas:")
 					para(inteiro i=1 ; i<=20 ; i++)
 					{
 						g.definir_tamanho_texto(15.0)
@@ -237,6 +241,8 @@ programa
 
 						criar_text(largura/4, altura/4, t.inteiro_para_cadeia(produto,10))
 						//texto
+
+						criar_botao(posicao_botao_x/3, posicao_botao_y,botao_largura,botao_altura,botao_sair, "Sair")
 						
 						g.desenhar_imagem(  largura/2 , 25, tabela)
 
@@ -281,6 +287,11 @@ programa
 								
 								criar_text(largura/4, altura/2 - 40, "Unidades")
 								criar_text(largura/4, altura/2, t.inteiro_para_cadeia(unidades,10))
+
+																
+								criar_text(largura/4, altura/4, t.inteiro_para_cadeia(produto,10))
+						
+								criar_botao(posicao_botao_x/3, posicao_botao_y,botao_largura,botao_altura,botao_sair, "Sair")
 
 								
 								se(unidades <= 1)
@@ -384,10 +395,7 @@ programa
 										g.renderizar()
 									}
 								}	//confirma compra
-								
-								criar_text(largura/4, altura/4, t.inteiro_para_cadeia(produto,10))
-						
-								criar_botao(posicao_botao_x/3, posicao_botao_y,botao_largura,botao_altura,botao_sair, "Sair")
+
 								se(click_sair_v1 e m.botao_pressionado(esq))
 								{
 									produto = 0
@@ -399,7 +407,7 @@ programa
 						}	//escolher unidades
 							
 						
-						criar_botao(posicao_botao_x/3, posicao_botao_y,botao_largura,botao_altura,botao_sair, "Sair")
+
 						se(click_sair_v e m.botao_pressionado(esq))
 						{
 							produto = 0
@@ -489,8 +497,8 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 5559; 
- * @DOBRAMENTO-CODIGO = [15, 130, 427, 435, 457, 471, 480];
+ * @POSICAO-CURSOR = 8154; 
+ * @DOBRAMENTO-CODIGO = [15, 130, 435, 443, 465, 479, 488];
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
